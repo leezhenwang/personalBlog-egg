@@ -41,6 +41,19 @@ module.exports = appInfo => {
     // load into agent, default is close
     agent: false,
   };
+  config.security = {
+    csrf: {
+      enable: false,
+      ignoreJSON: true
+    },
+    domainWhiteList: ['*'],
+    // domainWhiteList: ['http://localhost:3000'],//白名单
+  }
+  config.cors = {
+    origin: 'http://localhost:3000', //只允许这个域进行接口访问
+    credentials: true,// 允许cookie跨域
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
+  }
   return {
     ...config,
     ...userConfig,
