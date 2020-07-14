@@ -65,10 +65,10 @@ class HomeController extends Controller {
       SELECT article.id as id,
       article.title as title,
       article.introduce as introduce,
-      FROM_UNIXTIME(article.addTime,'%Y-%m-%d %H:%i:%s') as addTime,
-      arttcle.view_count as view_count,
+      FROM_UNIXTIME(article.addTime/1000,'%Y-%m-%d %H:%i:%s' ) as addTime,
+      article.view_count as view_count,
       type.typeName as typeName
-      FROM article LEFT JOIN type ON artocle.type_id = type.id
+      FROM article LEFT JOIN type ON article.type_id = type.id
       WHERE type_id = ${id}
     `
     const result = await this.app.mysql.query(sql)
