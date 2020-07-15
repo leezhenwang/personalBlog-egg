@@ -20,7 +20,7 @@ class HomeController extends Controller {
   }
   async getArticleList() {
     const sql =`
-      SELECT article.id as articlId,
+      SELECT article.id as articleId,
       article.title as title,
       article.introduce as introduce,
       FROM_UNIXTIME(article.addTime/1000,'%Y-%m-%d %H:%i:%s' ) as addTime,
@@ -62,7 +62,7 @@ class HomeController extends Controller {
   async getListById (){
     let id = this.ctx.query.id;
     let sql = `
-      SELECT article.id as id,
+      SELECT article.id as articleId,
       article.title as title,
       article.introduce as introduce,
       FROM_UNIXTIME(article.addTime/1000,'%Y-%m-%d %H:%i:%s' ) as addTime,
