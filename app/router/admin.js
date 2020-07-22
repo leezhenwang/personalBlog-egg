@@ -8,4 +8,5 @@ module.exports = app => {// admin后台分支api
   router.get('/admin/getTypeInfo', adminauth, controller.admin.main.getTypeInfo);
   router.post('/admin/addArticle', adminauth, controller.admin.main.addArticle);
   router.post('/admin/updateArticle', adminauth, controller.admin.main.updateArticle);
+  router.get('/admin/getArticleList', adminauth, controller.admin.main.getArticleList);
 };

@@ -50,6 +50,23 @@ class MainController extends Controller {
       isSuccess,
     }
   }
+  async getArticleList (){
+    const {page,pageSize} = this.ctx.query;
+    let sql = `
+      SELECT article.id as id,
+      article.title as title,
+      article.view_count as view_count,
+      article.introduce as introduce,
+      FROM_UNIXTIME(article.addTime/1000,'%Y-%m-%d %H:%i:%s' ) as addTime,
+      type.typeName as typeName
+      FROM article LEFT JOIN type ON article.type_id = type.id
+      ORDER BY article.id DESC
+      limit ${pageSize} offset ${(page-1)*pageSize}
+    `//跳过多少行再获取多少行
+    const resList = await this.app.mysql.query(sql)
+    const total = await this.app.mysql.query(`SELECT COUNT(*) FROM article`)
+    this.ctx.body = {list: resList,total:total[0]['COUNT(*)']}
+  }
 }
 
 module.exports = MainController;

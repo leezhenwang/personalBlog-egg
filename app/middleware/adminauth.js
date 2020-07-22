@@ -4,7 +4,7 @@ module.exports = options =>{
     if(ctx.session.openId){
       await next()//向下执行
     }else{
-      ctx.body = {data: '没有登陆'}
+      ctx.body = {data: '没有登录'}
     }
   }
 }
