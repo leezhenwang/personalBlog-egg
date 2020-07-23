@@ -9,4 +9,6 @@ module.exports = app => {// admin后台分支api
   router.post('/admin/addArticle', adminauth, controller.admin.main.addArticle);
   router.post('/admin/updateArticle', adminauth, controller.admin.main.updateArticle);
   router.get('/admin/getArticleList', adminauth, controller.admin.main.getArticleList);
+  router.get('/admin/deleteArticle', adminauth, controller.admin.main.deleteArticle);
+  router.get('/admin/getArticleById', adminauth, controller.admin.main.getArticleById);
 };

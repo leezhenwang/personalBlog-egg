@@ -67,6 +67,28 @@ class MainController extends Controller {
     const total = await this.app.mysql.query(`SELECT COUNT(*) FROM article`)
     this.ctx.body = {list: resList,total:total[0]['COUNT(*)']}
   }
+  async deleteArticle(){
+    let { id } = this.ctx.query;
+    const res = await this.app.mysql.delete('article',{id})
+    this.ctx.body = {data: res}
+  }
+  async getArticleById(){
+    let { id } = this.ctx.query;
+    let sql=`
+      SELECT article.id as id,
+      article.title as title,
+      article.introduce as introduce,
+      article.article_content as article_content,
+      FROM_UNIXTIME(article.addTime/1000,'%Y-%m-%d %H:%i:%s' ) as addTime,
+      article.view_count as view_count,
+      type.typeName as typeName,
+      type.id as typeId
+      FROM article LEFT JOIN type ON article.type_id = type.id
+      WHERE article.id = ${id}
+    `
+    const res = await this.app.mysql.query(sql)
+    this.ctx.body = {data: res}
+  }
 }
 
 module.exports = MainController;
