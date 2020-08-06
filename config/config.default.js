@@ -33,7 +33,7 @@ module.exports = appInfo => {
       user: 'root',
       // password
       //password: 'root',
-      password: isOnline ? '*********' : 'root',
+      password: isOnline ? 'lzw@'+ 997*2 : 'root',
       // database
       database: 'foreground',
     },
@@ -47,11 +47,26 @@ module.exports = appInfo => {
       enable: false,
       ignoreJSON: true
     },
-    domainWhiteList: ['*'],
+    domainWhiteList: isOnline ? ['http://129.204.206.80:88','http://129.204.206.80:3000'] : ['http://localhost:3000','http://localhost:3001'] // 会被config.cors.origin覆盖
     // domainWhiteList: ['http://localhost:3000'],//白名单
   }
   config.cors = {
-    origin: isOnline ? 'http://129.204.206.80:88' : 'http://localhost:3000', //线上只允许这个域进行接口访问
+    // origin: isOnline ? 'http://129.204.206.80:80' : 'http://localhost:3000', //线上只允许这个域进行接口访问
+    origin: isOnline ? function(ctx) { //设置允许来自指定域名请求
+      const whiteList = ['http://129.204.206.80:88','http://129.204.206.80:3000']; //可跨域白名单
+      let url = ctx.header.referer// .substr(0,ctx.header.referer.length - 1); //注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
+      let matchUrl = whiteList.find((item)=>{
+        return url.includes(item)
+      })
+      return matchUrl ? matchUrl : 'http://localhost:3001' //默认允许本地请求3000端口可跨域
+  } : function(ctx) { //设置允许来自指定域名请求
+    const whiteList = ['http://localhost:3000','http://localhost:3001']; //可跨域白名单
+    let url = ctx.header.referer//.substr(0,ctx.header.referer.length - 1); //注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
+    let matchUrl = whiteList.find((item)=>{
+      return url.includes(item)
+    })
+    return matchUrl ? matchUrl : 'http://localhost:3001' //默认允许本地请求3000端口可跨域
+  }, 
     credentials: true,// 允许cookie跨域
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
   }

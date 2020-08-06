@@ -52,6 +52,7 @@ class MainController extends Controller {
   }
   async getArticleList (){
     const {page,pageSize} = this.ctx.query;
+    console.log('11')
     let sql = `
       SELECT article.id as id,
       article.title as title,
@@ -87,6 +88,7 @@ class MainController extends Controller {
       WHERE article.id = ${id}
     `
     const res = await this.app.mysql.query(sql)
+    console.log(id)
     this.ctx.body = {data: res}
   }
 }
