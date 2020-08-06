@@ -15,7 +15,6 @@ class HomeController extends Controller {
   async index() {
     // 获取用户表的数据
     const result = await this.app.mysql.get('blog_content', {});// blog_content对应表名
-    console.log(result);
     this.ctx.body = result;
   }
   async getArticleList() {
@@ -39,7 +38,6 @@ class HomeController extends Controller {
     // 获取 get 传值
     const query = this.ctx.query;
     const { id } = query
-    console.log(id)
     let sql = `
       SELECT article.id as articleId,
       article.introduce as introduce,
