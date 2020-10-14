@@ -1,7 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 
 'use strict';
-let isOnline = false
+let isOnline = true
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -53,7 +53,15 @@ module.exports = appInfo => {
   config.cors = {
     // origin: isOnline ? 'http://129.204.206.80:80' : 'http://localhost:3000', //线上只允许这个域进行接口访问
     origin: isOnline ? function(ctx) { //设置允许来自指定域名请求
-      const whiteList = ['http://129.204.206.80:88','http://129.204.206.80:3000']; //可跨域白名单
+      const whiteList = [
+        'http://129.204.206.80:88',
+        'http://129.204.206.80:3000',
+        'http://leezhenwang.website:88',
+        'http://leezhenwang.website:80',
+        'http://leezhenwang.website',
+        'http://localhost:3000',
+        'http://localhost:3001'
+      ]; //可跨域白名单
       let url = ctx.header.referer// .substr(0,ctx.header.referer.length - 1); //注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
       let matchUrl = whiteList.find((item)=>{
         return url.includes(item)
