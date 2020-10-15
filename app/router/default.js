@@ -7,4 +7,6 @@ module.exports = app => {
   router.get('/default/getArticleById',controller.default.home.getArticleById);
   router.get('/default/getTypeInfo',controller.default.home.getTypeInfo);
   router.get('/default/getListById',controller.default.home.getListById);
+  router.get('/default/addVisitNum',controller.default.home.addVisitNum);
+  router.post('/default/addArticleReadTime',controller.default.home.addArticleReadTime);
 };

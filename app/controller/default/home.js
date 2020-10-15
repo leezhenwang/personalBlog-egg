@@ -72,6 +72,24 @@ class HomeController extends Controller {
     const result = await this.app.mysql.query(sql)
     this.ctx.body= {data: result}
   }
+  async addVisitNum(){
+    let sql = `
+      SELECT visit_num.visit_num as visit_num
+      FROM visit_num
+    `
+    const result = await this.app.mysql.query(sql)
+    console.log(result[0].visit_num)
+    this.app.mysql.update('visit_num',{ visit_num :result[0].visit_num+ 1, id: 0})
+    this.ctx.body= {data: result[0].visit_num  + 1 }
+  }
+  async addArticleReadTime (){
+    let reqObj = this.ctx.request.body
+    const result1 = await this.app.mysql.get('article', { id: reqObj.id });
+    const result2 = await this.app.mysql.update('article',{id: reqObj.id,view_count:result1.view_count + 1})// 必须传主键id
+    this.ctx.body = {
+      code: result2.affectedRows === 1 ? 200 : 500
+    }
+  }
 }
 
 module.exports = HomeController;

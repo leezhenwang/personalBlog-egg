@@ -1,7 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 
 'use strict';
-let isOnline = true
+let isOnline = false
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
