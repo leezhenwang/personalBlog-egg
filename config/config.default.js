@@ -33,7 +33,9 @@ module.exports = appInfo => {
       user: 'root',
       // password
       //password: 'root',
-      password: isOnline ? 'lzw@'+ 997*2 : 'root',
+      password: isOnline 
+      ? Buffer.from('bHp3QDE5OTQ=', 'base64').toString('utf-8')
+      : Buffer.from('bHp3MTk1ODc2', 'base64').toString('utf-8'),
       // database
       database: 'foreground',
     },
